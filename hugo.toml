@@ -1,4 +1,4 @@
-baseURL = ''
+baseURL = 'https://sivel-master.netlify.app'
 languageCode = 'ru-ru'
 
 # This is a "one page"-website, so we do not need these kinds of pages...
