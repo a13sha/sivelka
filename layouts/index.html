@@ -39,9 +39,11 @@
                  <a class='btn site-menu' data-title-anchor='{{ anchorize $fnav_title }}' href='#{{ anchorize $fnav_title }}'>{{ $button_title }}</a>
               {{ end }}
             {{ end }}
-            {{ with (index $content 0) }}
+            {{ with $content }}
+              {{ with (index . 0) }}
                 {{ $first_title := .Title }}{{ with .Params.navigation_menu_title }}{{ $first_title = . }}{{ end }}
-                <a id='header-arrow' href="#{{- anchorize $first_title -}}" aria-label="Go to first section"><i class="fa fa-angle-down"></i></a>
+                <a id='header-arrow' href="#{{- anchorize $first_title -}}" aria-label="Перейти к первой секции"><i class="fa fa-angle-down"></i></a>
+              {{ end }}
             {{ end }}
         </div>
     </div>
@@ -49,7 +51,7 @@
 
 <main class="content" role="main">
     <!-- Render sticky left navigation menu -->
-    <div class='fixed-nav'>
+    <div class='fixed-nav' role='navigation' aria-label='Основная навигация'>
         {{ range $index_val, $elem_val := $content }}
             {{ $fnav_title := .Title }}{{ with .Params.navigation_menu_title }}{{ $fnav_title = . }}{{ end }}
             <a class='fn-item' item_index='{{ (add $index_val 1) }}' href='#{{ anchorize $fnav_title }}'>{{ $fnav_title | safeHTML }}</a>

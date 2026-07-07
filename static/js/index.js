@@ -8,11 +8,14 @@ var $last = $(".post.last");
 var $fnav = $(".fixed-nav");
 var $postholder = $(".post-holder");
 var $sitehead = $("#site-head");
+var $fnItems = $(".fn-item");
 
 /* Globals jQuery, document */
 (function ($) {
   "use strict";
-  function srcTo(el, dur = 1000) {
+  function srcTo(el, dur) {
+    if (dur === undefined) { dur = 1000; }
+    if (!el || !el.length) { return; }
     $("html, body").animate(
       {
         scrollTop: el.offset().top,
@@ -30,12 +33,18 @@ var $sitehead = $("#site-head");
     }
   }
   $(document).ready(function () {
+    // Set item_index once on load (not on every scroll)
+    $post.each(function () {
+      var t = $(this).parent(".post-holder").index() + 1;
+      $(this).attr("item_index", t);
+    });
+
     // fallback to jQuery animate if smooth scrolling is not supported
-    if (!"scrollBehavior" in document.documentElement.style) {
+    if (!("scrollBehavior" in document.documentElement.style)) {
       // Cover buttons
       $("a.btn.site-menu").click(function (e) {
         e.preventDefault();
-        srcToAnchorWithTitle($(e.target).data("title-anchor"));
+        srcToAnchorWithTitle($(this).data("title-anchor"));
       });
 
       // cover arrow button
@@ -48,71 +57,66 @@ var $sitehead = $("#site-head");
     $(".post.last").next(".post-after").hide();
 
     if ($sitehead.length) {
+      var scrollTicking = false;
       $(window).scroll(function () {
-        var w = $(window).scrollTop();
-        var g = $sitehead.offset().top;
-        var h = $sitehead.offset().top + $sitehead.height() - 100;
+        if (!scrollTicking) {
+          window.requestAnimationFrame(function () {
+            var w = $(window).scrollTop();
+            var g = $sitehead.offset().top;
+            var h = $sitehead.offset().top + $sitehead.height() - 100;
 
-        if (w >= Math.floor(g) && w <= Math.ceil(h)) {
-          $(".fixed-nav").fadeOut("fast");
-        } else {
-          $(".fixed-nav").css("display", "flex").fadeIn("fast");
-        }
-
-        $post.each(function () {
-          if (($(window).height() + w) > ($(document).height() - $(".site-footer").height())) {
-            var l = $postholder.length;
-            $(".fn-item").removeClass("active")
-            $(".fn-item[item_index='" + (l) + "']").addClass("active")
-          } else {
-            var f = $(this).offset().top;
-            var b = $(this).offset().top + $(this).height();
-            var t = $(this).parent(".post-holder").index();
-            var i = $(".fn-item[item_index='" + t + "']");
-            var a = $(this)
-              .parent(".post-holder")
-              .prev(".post-holder")
-              .find(".post-after");
-
-            $(this).attr("item_index", t);
-
-            if (w >= f && w <= b) {
-              i.addClass("active");
-              a.fadeOut("slow");
+            if (w >= Math.floor(g) && w <= Math.ceil(h)) {
+              $fnav.fadeOut("fast");
             } else {
-              i.removeClass("active");
-              a.fadeIn("slow");
+              $fnav.css("display", "flex").fadeIn("fast");
             }
+
+            $post.each(function () {
+              var idx = $(this).attr("item_index");
+              if (($(window).height() + w) > ($(document).height() - $(".site-footer").height())) {
+                var l = $postholder.length;
+                $fnItems.removeClass("active").removeAttr("aria-current");
+                $fnItems.filter("[item_index='" + l + "']").addClass("active").attr("aria-current", "true");
+              } else {
+                var f = $(this).offset().top;
+                var b = $(this).offset().top + $(this).height();
+                var i = $fnItems.filter("[item_index='" + idx + "']");
+                var a = $(this)
+                  .parent(".post-holder")
+                  .prev(".post-holder")
+                  .find(".post-after");
+
+                if (w >= f && w <= b) {
+                  i.addClass("active").attr("aria-current", "true");
+                  a.fadeOut("slow");
+                } else {
+                  i.removeClass("active").removeAttr("aria-current");
+                  a.fadeIn("slow");
+                }
+              }
+            });
+
+            scrollTicking = false;
+          });
+          scrollTicking = true;
         }
-        });
       });
     }
 
-    $('ul').addClass("fa-ul");
-    $("ul li").prepend('<span class="fa-li"><i class="fa fa-asterisk"></i></span>');
-    $("blockquote p").prepend('<span class="quo fa fa-quote-left"></span>');
-    $("blockquote p").append('<span class="quo fa fa-quote-right"></span>');
+    // Scope list/blockquote decoration to post content only
+    $(".post-content ul").addClass("fa-ul");
+    $(".post-content ul li").prepend('<span class="fa-li"><i class="fa fa-asterisk"></i></span>');
+    $(".post-content blockquote p").prepend('<span class="quo fa fa-quote-left"></span>');
+    $(".post-content blockquote p").append('<span class="quo fa fa-quote-right"></span>');
   });
 
+  // Optimised icon replacement: single pass with combined regex
   $post.each(function () {
-    var postText = $(this).html();
-    var fa = [];
-    for (var i = 0; i < icons.length; i++) {
-      fa[i] = {};
-      fa[i].str = "@" + icons[i] + "@";
-      fa[i].icon = icons[i];
-      fa[i].int = postText.search(fa[i].str);
-
-      if (fa[i].int > -1) {
-        fa[i].count = postText.match(new RegExp(fa[i].str, "g")).length;
-        for (var j = 0; j < fa[i].count; j++) {
-          $(this).html(
-            $(this)
-              .html()
-              .replace(fa[i].str, "<i class='fa " + fa[i].icon + "'></i>")
-          );
-        }
-      }
+    var $this = $(this);
+    var html = $this.html();
+    var replaced = html.replace(/@(fa-[a-z0-9-]+)@/g, '<i class="fa $1"></i>');
+    if (replaced !== html) {
+      $this.html(replaced);
     }
   });
 })(jQuery);

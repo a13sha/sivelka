@@ -1,60 +1,60 @@
-/* === Light Theme (default) === */
+/* === Light Theme (default) — "Лёд и Медь" (Ice & Copper) === */
 :root,
 :root[data-theme="light"] {
-  --cover-text-color: #0e7490;
-  --highlight: #0284c7;
+  --cover-text-color: #0f766e;
+  --highlight: #0891b2;
   --highlight-contrast: #ffffff;
-  --highlight-inverse: #0369a1;
+  --highlight-inverse: #0e7490;
   --highlight-inverse-contrast: #ffffff;
   --cover-title-and-description-guard-bg-color: rgba(255, 255, 255, 0.85);
   --cover-title-text-shadow: rgba(255, 255, 255, 0.5) 0px 0px 20px;
-  --sticky-menu-text-color: #0284c7;
+  --sticky-menu-text-color: #0891b2;
 
-  --section-light-text-color: #1e293b;
+  --section-light-text-color: #0f172a;
   --section-light-bg-color: #f8fafc;
   --section-dark-text-color: #f8fafc;
-  --section-dark-bg-color: #0c4a6e;
+  --section-dark-bg-color: #0f172a;
 
-  --section-uni-quote: #64748b;
+  --section-uni-quote: #475569;
   --section-uni-code-bg-color: #e2e8f0;
 
-  --footer-color-background: #0c4a6e;
-  --footer-color: #bae6fd;
+  --footer-color-background: #0f172a;
+  --footer-color: #cffafe;
 
   --toggle-bg: #e2e8f0;
-  --toggle-icon: #d97706;
+  --toggle-icon: #ea580c;
 
-  --warm-accent: #d97706;
-  --warm-muted: #fef3c7;
-  --warm-glow: rgba(217, 119, 6, 0.15);
+  --warm-accent: #ea580c;
+  --warm-muted: #ffedd5;
+  --warm-glow: rgba(234, 88, 12, 0.15);
 }
 
-/* === Dark Theme === */
+/* === Dark Theme — "Лёд и Медь" (Ice & Copper) === */
 :root[data-theme="dark"] {
   --cover-text-color: #67e8f9;
-  --highlight: #38bdf8;
-  --highlight-contrast: #0f172a;
-  --highlight-inverse: #0ea5e9;
+  --highlight: #22d3ee;
+  --highlight-contrast: #0b0f19;
+  --highlight-inverse: #06b6d4;
   --highlight-inverse-contrast: #ffffff;
-  --cover-title-and-description-guard-bg-color: rgba(15, 23, 42, 0.8);
-  --cover-title-text-shadow: rgba(0, 0, 0, 0.3) 0px 0px 20px;
-  --sticky-menu-text-color: #38bdf8;
+  --cover-title-and-description-guard-bg-color: rgba(11, 15, 25, 0.8);
+  --cover-title-text-shadow: rgba(0, 0, 0, 0.5) 0px 0px 20px;
+  --sticky-menu-text-color: #22d3ee;
 
-  --section-light-text-color: #e2e8f0;
-  --section-light-bg-color: #0f172a;
-  --section-dark-text-color: #e2e8f0;
+  --section-light-text-color: #f1f5f9;
+  --section-light-bg-color: #0b0f19;
+  --section-dark-text-color: #f1f5f9;
   --section-dark-bg-color: #1e293b;
 
   --section-uni-quote: #94a3b8;
   --section-uni-code-bg-color: #1e293b;
 
-  --footer-color-background: #0f172a;
+  --footer-color-background: #0b0f19;
   --footer-color: #67e8f9;
 
   --toggle-bg: #1e293b;
-  --toggle-icon: #fbbf24;
+  --toggle-icon: #f97316;
 
-  --warm-accent: #f59e0b;
-  --warm-muted: #78350f;
-  --warm-glow: rgba(245, 158, 11, 0.15);
+  --warm-accent: #f97316;
+  --warm-muted: #431407;
+  --warm-glow: rgba(249, 115, 22, 0.2);
 }
