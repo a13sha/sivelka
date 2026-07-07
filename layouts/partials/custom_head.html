@@ -19,30 +19,33 @@
   top: 52px;
   right: 20px;
   z-index: 100000;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 2px solid var(--highlight);
-  background: var(--toggle-bg);
+  width: 32px;
+  height: 32px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(10px);
+  transition: opacity 0.3s ease;
+  background: none;
+  border: none;
+  padding: 0;
 }
 
 .theme-toggle:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(8, 145, 178, 0.3);
+  opacity: 0.7;
 }
 
 .theme-toggle svg {
   width: 22px;
   height: 22px;
-  fill: var(--toggle-icon);
-  transition: transform 0.3s ease;
+  stroke: var(--section-uni-quote);
+  stroke-width: 1.5;
+  fill: none;
+  transition: stroke 0.3s ease;
+}
+
+.theme-toggle:hover svg {
+  stroke: var(--highlight);
 }
 
 /* === Modern Animations === */
@@ -274,8 +277,8 @@ a:focus-visible {
   .theme-toggle {
     top: 56px;
     right: 12px;
-    width: 40px;
-    height: 40px;
+    width: 28px;
+    height: 28px;
   }
 }
 
@@ -288,8 +291,8 @@ a:focus-visible {
   .theme-toggle {
     top: 50px;
     right: 8px;
-    width: 36px;
-    height: 36px;
+    width: 24px;
+    height: 24px;
   }
 
   .theme-toggle svg {
