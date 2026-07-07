@@ -12,105 +12,53 @@
   var svg = document.getElementById('themeSvg');
   var html = document.documentElement;
 
-  function setPaths(theme) {
+  function setIconMoon() {
     while (svg.firstChild) svg.removeChild(svg.firstChild);
     var ns = 'http://www.w3.org/2000/svg';
-    if (theme === 'dark') {
-      // Moon
+    var p = document.createElementNS(ns, 'path');
+    p.setAttribute('d', 'M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z');
+    svg.appendChild(p);
+  }
+
+  function setIconSun() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var ns = 'http://www.w3.org/2000/svg';
+    var circle = document.createElementNS(ns, 'circle');
+    circle.setAttribute('cx', '12');
+    circle.setAttribute('cy', '12');
+    circle.setAttribute('r', '5');
+    svg.appendChild(circle);
+    ['M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42'].forEach(function(d) {
       var p = document.createElementNS(ns, 'path');
-      p.setAttribute('d', 'M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z');
+      p.setAttribute('d', d);
       svg.appendChild(p);
-    } else if (theme === 'light') {
-      // Sun
-      var pts = [
-        'M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42'
-      ];
-      var circle = document.createElementNS(ns, 'circle');
-      circle.setAttribute('cx', '12');
-      circle.setAttribute('cy', '12');
-      circle.setAttribute('r', '5');
-      svg.appendChild(circle);
-      pts.forEach(function(d) {
-        var p = document.createElementNS(ns, 'path');
-        p.setAttribute('d', d);
-        svg.appendChild(p);
-      });
-    } else {
-      // Monitor
-      var rect = document.createElementNS(ns, 'rect');
-      rect.setAttribute('x', '2');
-      rect.setAttribute('y', '3');
-      rect.setAttribute('width', '20');
-      rect.setAttribute('height', '14');
-      rect.setAttribute('rx', '2');
-      rect.setAttribute('ry', '2');
-      svg.appendChild(rect);
-      var line = document.createElementNS(ns, 'line');
-      line.setAttribute('x1', '8');
-      line.setAttribute('y1', '21');
-      line.setAttribute('x2', '16');
-      line.setAttribute('y2', '21');
-      svg.appendChild(line);
-      var line2 = document.createElementNS(ns, 'line');
-      line2.setAttribute('x1', '12');
-      line2.setAttribute('y1', '17');
-      line2.setAttribute('x2', '12');
-      line2.setAttribute('y2', '21');
-      svg.appendChild(line2);
-    }
+    });
   }
 
-  function updateIcon() {
-    var theme = html.getAttribute('data-theme');
-    var stored = localStorage.getItem('theme');
-    // If stored is 'system', show monitor icon; otherwise show based on actual theme
-    if (stored === 'system') {
-      setPaths('system');
-    } else {
-      setPaths(theme);
-    }
+  function applyTheme(theme) {
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    if (theme === 'dark') setIconMoon();
+    else setIconSun();
   }
 
-  function getSystemTheme() {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  // Init
+  var saved = localStorage.getItem('theme');
+  if (saved === 'dark' || saved === 'light') {
+    applyTheme(saved);
+  } else {
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(prefersDark ? 'dark' : 'light');
   }
 
   toggle.addEventListener('click', function() {
     var current = html.getAttribute('data-theme') || 'light';
-    var next;
-
-    if (current === 'light') {
-      next = 'dark';
-    } else if (current === 'dark') {
-      next = 'system';
-    } else {
-      next = 'light';
-    }
-
-    if (next === 'system') {
-      html.setAttribute('data-theme', getSystemTheme());
-      localStorage.setItem('theme', 'system');
-    } else {
-      html.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-    }
-
-    updateIcon();
+    applyTheme(current === 'light' ? 'dark' : 'light');
   });
-
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
-    if (localStorage.getItem('theme') === 'system') {
-      html.setAttribute('data-theme', getSystemTheme());
-      updateIcon();
-    }
-  });
-
-  updateIcon();
 })();
 </script>
 
 <script>
-// Lazy loading for images
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.post-content img').forEach(function(img) {
     img.setAttribute('loading', 'lazy');

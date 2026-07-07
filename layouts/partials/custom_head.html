@@ -545,7 +545,7 @@ a.btn:hover {
 <script>
   (function() {
     var saved = localStorage.getItem('theme');
-    if (saved) {
+    if (saved === 'dark' || saved === 'light') {
       document.documentElement.setAttribute('data-theme', saved);
     } else {
       var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
