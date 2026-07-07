@@ -4,8 +4,10 @@ weight: 4
 header_menu: true
 ---
 
-{{<icon class="fa fa-envelope">}}&nbsp;[uydom77@mail.ru](mailto:uydom77@mail.ru)
+<i class="fa fa-envelope"></i>&nbsp;[uydom77@mail.ru](mailto:uydom77@mail.ru)
 
-{{<icon class="fa fa-phone">}}&nbsp;[+70645968955](tel:+70645968955)
+<i class="fa fa-phone"></i>&nbsp;[+7 (964) 596-89-55](tel:+79645968955)
 
-Будем на связи!
+<i class="fa fa-map-marker"></i>&nbsp;Москва и Московская область
+
+Свяжитесь со мной любым удобным способом. Отвечаю оперативно!

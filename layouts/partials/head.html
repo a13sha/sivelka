@@ -1,0 +1,38 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+<title>Мастер по Климату — Установка и обслуживание кондиционеров в Москве</title>
+
+{{ with .Site.Params.favicon }}
+  <link rel="shortcut icon" href="{{ . | absURL }}" type="image/png"
+/>{{ end }}
+
+{{ with .Site.Params.description }}
+  <meta name="description" content="{{ . }}"
+/>{{ end }}
+{{ with .Site.Params.meta.keywords }}
+  <meta name="keywords" content="{{ . }}"
+/>{{ end }}
+{{ with .Site.Params.meta.author }}
+  <meta name="author" content="{{ . }}"
+/>{{ end }}
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- CSS: Reset & Icons -->
+<link rel="stylesheet" href="{{ "css/normalize.css" | absURL }}" type="text/css" />
+<link rel="stylesheet" href="{{ "css/fork-awesome.css" | absURL }}" type="text/css" />
+<link rel="stylesheet" href="{{ "css/fonts.css" | absURL }}" type="text/css" />
+<link rel="stylesheet" href="{{ "css/generic.css" | absURL }}" type="text/css" />
+
+<!-- Pre-compiled theme CSS -->
+<link rel="stylesheet" href="{{ "css/style.css" | absURL }}" type="text/css" />
+
+{{ template "_internal/opengraph.html" . }}
+{{ template "_internal/twitter_cards.html" . }}
+{{ template "_internal/schema.html" . }}
+
+{{- partial "custom_head.html" . -}}

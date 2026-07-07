@@ -1,16 +1,15 @@
-
 [build]
   command = "hugo --gc --minify -b $URL"
   publish = "public"
 
 [build.environment]
   NODE_ENV = "production"
-  GO_VERSION = "1.16"
-  TZ = "UTC"  # Set to preferred timezone
+  TZ = "UTC"
 
 [context.production.environment]
-  HUGO_VERSION = "0.112.5"
+  HUGO_VERSION = "0.139.0"
   HUGO_ENV = "production"
+  HUGO_ENABLEGITINFO = "true"
 
 [context.deploy-preview.environment]
-  HUGO_VERSION = "0.112.5"
+  HUGO_VERSION = "0.139.0"

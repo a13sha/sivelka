@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}">
+  {{- partial "head.html" . -}}
+  <body>
+    {{- partial "header.html" . -}}
+    {{- block "main" . }}{{- end }}
+    {{- partial "footer.html" . -}}
+
+    <!-- jQuery -->
+    <script src="{{ "js/jquery-3.6.3.min.js" | absURL }}"></script>
+
+    <!-- HugoScroll JS -->
+    <script src="{{ "js/icons.js" | absURL }}"></script>
+    <script src="{{ "js/index.js" | absURL }}"></script>
+    <script src="{{ "js/css-vars-ponyfill.min.js" | absURL }}"></script>
+    <script>cssVars();</script>
+
+    {{- partial "custom_body.html" . -}}
+  </body>
+</html>
